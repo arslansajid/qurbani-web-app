@@ -20,3 +20,9 @@ a {
   text-decoration: none;
   color: unset;
 }
+
+:focus,
+:active {
+  outline: none !important;
+  box-shadow: unset !important;
+}

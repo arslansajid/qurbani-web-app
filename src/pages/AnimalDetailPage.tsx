@@ -1,20 +1,73 @@
 import * as React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Button, Container, Box } from '@material-ui/core';
+import { Grid, Button, Container, Box, Typography, Fab } from '@material-ui/core';
 import Colors from '../styles/Colors';
+import ImageGallery from 'react-image-gallery';
+import StarRatings from 'react-star-ratings';
+import PhoneIcon from '@material-ui/icons/Phone';
 
-interface Props { }
+interface Props {
+    location: any,
+}
 
-const AnimalDetailPage: React.FC<Props> = (props) => {
+const AnimalDetailPage: React.FC<Props> = ({location}) => {
     const classes = useStyles();
-    console.log("##########", props)
+    const animal = location.state;
+    console.log("######## animal", animal)
+    const images = animal.image.length && animal.image.map((image) => {
+        let obj = {
+            original: image,
+            thumbnail: image,
+        };
+        return obj;
+    })
+    console.log('images', images)
+
     return (
         <div className={classes.container}>
-            <Container maxWidth='xl' className={classes.container}>
+            <Container maxWidth='xl'>
+                <ImageGallery
+                    items={images}
+                    autoPlay={false}
+                    showPlayButton={false}
+                    showThumbnails={false}
+                    showFullscreenButton={true}
+                    showNav={true}
+                    // thumbnailPosition={'left'}
+                />
                 <Box className={classes.filtersBox}>
-                    Animal Detail
+                    <Grid container justify="space-between">
+                    <Typography gutterBottom variant='h4' component='h3'>Shakeel</Typography>
+                    <StarRatings
+                        rating={Number(4)}
+                        starRatedColor={Colors.appRed}
+                        numberOfStars={5}
+                        starDimension="30px"
+                        starSpacing="0px"
+                        svgIconViewBox={'0 0 20 20'}
+                        gradientPathName={window.location.pathname}
+                        svgIconPath="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218"
+                        name='rating'
+                    />
+                    </Grid>
+                    <Typography gutterBottom variant='h5' component='h5'>Weight: {animal.weight} {animal.weightUnit}</Typography>
+                    <Typography gutterBottom variant='h5' component='h5'>Price: {animal.price}/- Rs</Typography>
+                    <Typography gutterBottom variant='h5' component='h5'>Contact: {animal.contact}</Typography>
+                    {
+                        animal.description && animal.description.length ? (
+                            <>
+                                <hr />
+                                <div>{animal.description}</div>
+                            </>
+                        )
+                        :
+                        null
+                    }
                 </Box>
             </Container>
+            <Fab className={classes.callButton}>
+                <PhoneIcon className={classes.callIcon} />
+            </Fab>
         </div>
     );
 };
@@ -44,6 +97,15 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
         },
+        callButton: {
+            background: Colors.appRed,
+            position: 'fixed',
+            bottom: 25,
+            right: 25,
+        },
+        callIcon: {
+            color: 'white'
+        }
     })
 );
 
