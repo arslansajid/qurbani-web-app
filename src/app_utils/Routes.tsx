@@ -8,6 +8,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import HomePage from '../pages/HomePage';
 import BuyPage from '../pages/BuyPage';
 import SellPage from '../pages/SellPage';
+import AnimalDetailPage from '../pages/AnimalDetailPage';
 import ContactusPage from '../pages/ContactusPage';
 
 import Navbar from '../components/ZNavbar';
@@ -27,6 +28,7 @@ const UnauthenticatedRoutes = [
     <Route exact path='/' component={HomePage} />,
     <Route exact path='/buy' component={BuyPage} />,
     <Route exact path='/sell' component={SellPage} />,
+    <Route exact path='/animal-detail' component={AnimalDetailPage} />,
     <Route exact path='/contact-us' component={ContactusPage} />,
 ];
 
