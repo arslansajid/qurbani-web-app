@@ -37,15 +37,18 @@ function SelectDropdown(props) {
 		labelAlign,
 		labelWidth,
 		placeholder,
+		multiple,
 		onChange,
 		styles
 	} = props;
 
 	return (
 		<div style={styles} className={classes.selectCnt}>
-			<InputLabel style={{ width: labelWidth }} className={classes.selectLabel}>
-				{label}
-			</InputLabel>
+			{!!label && label.length && (
+				<InputLabel style={{ width: labelWidth }} className={classes.selectLabel}>
+					{label}
+				</InputLabel>
+			)}
 
 			<Select
 				styles={customSelectStyles}
@@ -57,7 +60,8 @@ function SelectDropdown(props) {
 				value={value}
 				options={options}
 				onChange={handleSelectChange}
-				// menuPlacement="top"
+				isMulti={multiple}
+			// menuPlacement="top"
 			/>
 		</div>
 	);
@@ -75,7 +79,8 @@ SelectDropdown.propTypes = {
 	labelWidth: PropTypes.number,
 	styles: PropTypes.object,
 	onSelectAction: PropTypes.func,
-	placeholder: PropTypes.string
+	placeholder: PropTypes.string,
+	multiple: PropTypes.bool,
 };
 
 // Specifies the default values for props

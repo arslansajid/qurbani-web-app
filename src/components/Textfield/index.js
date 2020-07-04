@@ -21,6 +21,7 @@ function CustomTextfield(props) {
     labelWidth,
     disabled,
     customClassName,
+    pattern,
     ...rest
   } = props;
 
@@ -52,13 +53,14 @@ function CustomTextfield(props) {
         <OutlinedInput
           id={id}
           value={value}
-          className={customClassName === "whiteInput" ? classes.whiteTextField : classes.textField}
+          className={customClassName === "whiteInput" ? classes.whiteTextField : customClassName === "form-input" ? classes.formInputContainer : classes.textField}
           disabled={disabled}
           // InputProps={{ disableUnderline: true }}
           InputProps={{
-            classes: { input: customClassName === "whiteInput" ? classes.whiteTextField : classes.textField },
-            disableUnderline: true
+            classes: { input: customClassName === "whiteInput" ? classes.whiteTextField : customClassName === "form-input" ? classes.formInput : classes.textField },
+            disableUnderline: true,
           }}
+          inputProps={{ pattern: pattern }}
           multiline={id === "user-message" ? true : false}
           {...rest}
         />

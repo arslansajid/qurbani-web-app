@@ -41,13 +41,15 @@ const textFieldStyles = () => ({
     width: "100%",
     marginTop: '0px !important',
     "& textarea": {
-      minHeight: "100px",
+      minHeight: "80px",
       padding: "10px 10px 10px 10px",
       overflow: 'scroll',
       color: Colors.black,
       fontWeight: 600,
       fontSize: "16px",
-      lineHeight: "24px"
+      lineHeight: "24px",
+      background: 'white',
+      border: "2px solid #EDEDED",
     },
     "& input": {
       textIndent: "10px",
@@ -55,6 +57,49 @@ const textFieldStyles = () => ({
       fontWeight: 600,
       fontSize: "16px",
       lineHeight: "24px"
+    },
+    '&::placeholder': {
+      color: Colors.placeHolderText,
+      fontWeight: 500,
+    }
+  },
+  formInputContainer: {
+    width: '100%',
+    height: 30,
+    borderRadius: '50%',
+
+    "& input": {
+      textIndent: "10px",
+      color: Colors.black,
+      fontWeight: 400,
+      fontSize: "14px",
+      lineHeight: "20px"
+    },
+  },
+  formInput: {
+    background: 'white',
+    borderRadius: "20px",
+    display: "flex",
+    justifyContent: "center",
+    border: "2px solid #EDEDED",
+    width: '100%',
+
+    flex: 1,
+    minHeight: "20px",
+    maxHeight: "100px", //added for textarea message  
+    width: "100%",
+    marginTop: '0px !important',
+
+    // "&:invalid": {
+    //   border: "red solid 2px"
+    // },
+
+    "& input": {
+      textIndent: "10px",
+      color: Colors.black,
+      fontWeight: 400,
+      fontSize: "14px",
+      lineHeight: "20px"
     },
     '&::placeholder': {
       color: Colors.placeHolderText,
