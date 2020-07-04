@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,400i,600,600i,700,700i,900&display=swap');
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-font-smoothing: antialiased;
+  font-family: Poppins;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5.h6 {
+  font-family: Poppins;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
