@@ -20,7 +20,9 @@ const BuyPage: React.FC<Props> = () => {
     const searchAnimals = () => {
         const animal = !!category && category?.value;
         const location = !!city && city?.value;
-        getAnimalsByFilter(animal, location, null, null)
+        const weightFilter = !!weight && weight?.value;
+        const priceFilter = !!price && price?.value;
+        getAnimalsByFilter(animal, location, weightFilter, priceFilter)
         .then((res) => {
             setAnimals([...res])
         })
@@ -68,7 +70,7 @@ const BuyPage: React.FC<Props> = () => {
                     <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
                         <SelectDropdown
                             options={WeightOptions}
-                            defaultValue={!!weight && Object.keys(weight).length ? city : null}
+                            defaultValue={!!weight && Object.keys(weight).length ? weight : null}
                             isDisabled={false}
                             isClearable={false}
                             name={'category-select'}
@@ -83,7 +85,7 @@ const BuyPage: React.FC<Props> = () => {
                     <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
                         <SelectDropdown
                             options={PriceOptions}
-                            defaultValue={!!price && Object.keys(price).length ? city : null}
+                            defaultValue={!!price && Object.keys(price).length ? price : null}
                             isDisabled={false}
                             isClearable={false}
                             name={'category-select'}
