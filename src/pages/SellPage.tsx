@@ -5,7 +5,6 @@ import Colors from '../styles/Colors';
 import SelectDropdown from "../components/Select/Select";
 import TextField from "../components/Textfield";
 import { CategoryOptions, CitiesOptions, UnitOptions, GenderOptions } from "../static/_data";
-import PhoneInput from 'react-phone-number-input'
 
 interface Props { }
 
