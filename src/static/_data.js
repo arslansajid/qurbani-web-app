@@ -39,14 +39,41 @@ export const news = [
     }
 ];
 
+export const GenderOptions = [
+    {value: "Male", label: "Male"},
+    {value: "Female", label: "Female"},
+];
+
+export const UnitOptions = [
+    {value: "kg", label: "Kg"},
+    {value: "mann", label: "Mann"},
+];
+
+export const WeightOptions = [
+    {value: "bulls", label: "< 40 kg (1 mann)"},
+    {value: "saands", label: "Saand"},
+    {value: "camels", label: "Camel"},
+    {value: "bakras", label: "Bakra"},
+    {value: "sheeps", label: "Sheep"},
+    {value: "dumbas", label: "Dumba"},
+];
+
+export const PriceOptions = [
+    {value: "bulls", label: "< 20,000 Rs"},
+    {value: "saands", label: "Saand"},
+    {value: "camels", label: "Camel"},
+    {value: "bakras", label: "Bakra"},
+    {value: "sheeps", label: "Sheep"},
+    {value: "dumbas", label: "Dumba"},
+];
 
 export const CategoryOptions = [
-    {value: "memo", label: "Bull"},
-    {value: "letter", label: "Saand"},
-    {value: "caseFile", label: "Camel"},
-    {value: "signal", label: "Bakra"},
-    {value: "signal", label: "Sheep"},
-    {value: "signal", label: "Dumba"},
+    {value: "bulls", label: "Bull"},
+    {value: "saands", label: "Saand"},
+    {value: "camels", label: "Camel"},
+    {value: "bakras", label: "Bakra"},
+    {value: "sheeps", label: "Sheep"},
+    {value: "dumbas", label: "Dumba"},
 ];
 
 export const CitiesOptions = [
@@ -56,28 +83,118 @@ export const CitiesOptions = [
         id: 1
     },
     {
-        label: 'Karachi',
-        value: 'Karachi',
+        label: 'Islamabad',
+        value: 'Islamabad',
         id: 2
-    },
-    {
-        label: 'Multan',
-        value: 'Multan',
-        id: 3
-    },
-    {
-        label: 'Faisalabad',
-        value: 'Faisalabad',
-        id: 4
     },
     {
         label: 'Rawalpindi',
         value: 'Rawalpindi',
+        id: 3
+    },
+    {
+        label: 'Karachi',
+        value: 'Karachi',
+        id: 4
+    },
+    {
+        label: 'Peshawar',
+        value: 'Peshawar',
         id: 5
     },
     {
-        label: 'Islamabad',
-        value: 'Islamabad',
+        label: 'Multan',
+        value: 'Multan',
         id: 6
+    },
+    {
+        label: ' Quetta',
+        value: ' Quetta',
+        id: 7
+    },
+    {
+        label: 'Faisalabad',
+        value: 'Faisalabad',
+        id: 8
+    },
+    {
+        label: 'Sialkot',
+        value: 'Sialkot',
+        id: 9
+    },
+    {
+        label: 'Gujranwala',
+        value: 'Gujranwala',
+        id: 10
+    },
+    {
+        label: 'Jhelum',
+        value: 'Jhelum',
+        id: 11
+    },
+    {
+        label: 'Jhang',
+        value: 'Jhang',
+        id: 12
+    },
+    {
+        label: 'Chakwal',
+        value: 'Chakwal',
+        id: 13
+    },
+    {
+        label: 'Mianwali',
+        value: 'Mianwali',
+        id: 14
+    },
+    {
+        label: 'Kasur',
+        value: 'Kasur',
+        id: 15
+    },
+    {
+        label: 'Sahiwal',
+        value: 'Sahiwal',
+        id: 16
+    },
+    {
+        label: 'Mardan',
+        value: 'Mardan',
+        id: 17
+    },
+    {
+        label: 'Abbottabad',
+        value: 'Abbottabad',
+        id: 18
+    },
+    {
+        label: 'Chaman',
+        value: 'Chaman',
+        id: 19
+    },
+    {
+        label: 'Chitral',
+        value: 'Chitral',
+        id: 20
+    },
+    {
+        label: 'Sawat',
+        value: 'Sawat',
+        id: 21
+    },
+    {
+        label: 'Muzaffarabad',
+        value: 'Muzaffarabad',
+        id: 22
+    },
+    {
+        label: 'Bahawalpur',
+        value: 'Bahawalpur',
+        id: 23
+    },
+    {
+        label: 'DG Khan',
+        value: 'DG Khan',
+        id: 24
     },
 ]
