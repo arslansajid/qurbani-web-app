@@ -75,16 +75,16 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
                 </Box>
                 {
                     items.length ? (
-                        <Grid>
+                        <Grid className={classes.noScroll}>
                             <Typography gutterBottom variant='h5' component='h4'>Our Recommendations</Typography>
                             <ItemsCarousel
                                 requestToChangeActive={setActiveItemIndex}
                                 activeItemIndex={activeItemIndex}
-                                numberOfCards={3}
+                                numberOfCards={window.innerWidth < 500 ? 1 : 3}
                                 gutter={20}
                                 leftChevron={<Button className={classes.roundBtn}><PrevIcon /></Button>}
                                 rightChevron={<Button className={classes.roundBtn}><NextIcon /></Button>}
-                                outsideChevron
+                                outsideChevron={window.innerWidth < 500 ? false : true}
                                 chevronWidth={40}
                             >
                                 {
@@ -163,6 +163,9 @@ const useStyles = makeStyles((theme: Theme) =>
             "&:hover": {
                 background: Colors.appRed,
             }
+        },
+        noScroll: {
+            // pointerEvents: 'none'
         }
     })
 );
