@@ -5,14 +5,20 @@ import Colors from '../styles/Colors';
 import ImageGallery from 'react-image-gallery';
 import StarRatings from 'react-star-ratings';
 import PhoneIcon from '@material-ui/icons/Phone';
+import ItemsCarousel from 'react-items-carousel';
+import ZAnimalCard from "../components/ZAnimalCard";
+import PrevIcon from "@material-ui/icons/ChevronLeft";
+import NextIcon from "@material-ui/icons/ChevronRight";
 
 interface Props {
     location: any,
 }
 
-const AnimalDetailPage: React.FC<Props> = ({location}) => {
+const AnimalDetailPage: React.FC<Props> = ({ location }) => {
     const classes = useStyles();
-    const animal = location.state;
+    const [activeItemIndex, setActiveItemIndex] = React.useState(0);
+    const animal = location.state.animal;
+    const items = location.state.items;
     console.log("######## animal", animal)
     const images = animal.image.length && animal.image.map((image) => {
         let obj = {
@@ -21,7 +27,10 @@ const AnimalDetailPage: React.FC<Props> = ({location}) => {
         };
         return obj;
     })
-    console.log('images', images)
+
+    // React.useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, [])
 
     return (
         <div className={classes.container}>
@@ -33,26 +42,26 @@ const AnimalDetailPage: React.FC<Props> = ({location}) => {
                     showThumbnails={false}
                     showFullscreenButton={true}
                     showNav={true}
-                    // thumbnailPosition={'left'}
+                // thumbnailPosition={'left'}
                 />
                 <Box className={classes.filtersBox}>
-                    <Grid container justify="space-between">
-                    <Typography gutterBottom variant='h4' component='h3'>Shakeel</Typography>
-                    <StarRatings
-                        rating={Number(4)}
-                        starRatedColor={Colors.appRed}
-                        numberOfStars={5}
-                        starDimension="30px"
-                        starSpacing="0px"
-                        svgIconViewBox={'0 0 20 20'}
-                        gradientPathName={window.location.pathname}
-                        svgIconPath="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218"
-                        name='rating'
-                    />
+                    <Grid container justify="space-between" alignItems="center">
+                        <Typography gutterBottom variant='h5' component='h4'>Shakeel</Typography>
+                        <StarRatings
+                            rating={Number(4)}
+                            starRatedColor={Colors.appRed}
+                            numberOfStars={5}
+                            starDimension="25px"
+                            starSpacing="0px"
+                            svgIconViewBox={'0 0 20 20'}
+                            gradientPathName={window.location.pathname}
+                            svgIconPath="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218"
+                            name='rating'
+                        />
                     </Grid>
-                    <Typography gutterBottom variant='h5' component='h5'>Weight: {animal.weight} {animal.weightUnit}</Typography>
-                    <Typography gutterBottom variant='h5' component='h5'>Price: {animal.price}/- Rs</Typography>
-                    <Typography gutterBottom variant='h5' component='h5'>Contact: {animal.contact}</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Weight: {animal.weight} {animal.weightUnit}</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Price: {animal.price}/- Rs</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Contact: {animal.contact}</Typography>
                     {
                         animal.description && animal.description.length ? (
                             <>
@@ -60,10 +69,47 @@ const AnimalDetailPage: React.FC<Props> = ({location}) => {
                                 <div>{animal.description}</div>
                             </>
                         )
-                        :
-                        null
+                            :
+                            null
                     }
                 </Box>
+                {
+                    items.length ? (
+                        <Grid>
+                            <Typography gutterBottom variant='h5' component='h4'>Our Recommendations</Typography>
+                            <ItemsCarousel
+                                requestToChangeActive={setActiveItemIndex}
+                                activeItemIndex={activeItemIndex}
+                                numberOfCards={3}
+                                gutter={20}
+                                leftChevron={<Button className={classes.roundBtn}><PrevIcon /></Button>}
+                                rightChevron={<Button className={classes.roundBtn}><NextIcon /></Button>}
+                                outsideChevron
+                                chevronWidth={40}
+                            >
+                                {
+                                    items.length && items.map((animal, index) => {
+                                        return (
+                                            <Grid key={index}>
+                                                <ZAnimalCard
+                                                    imageUrl={animal.image[0]}
+                                                    price={animal.price}
+                                                    weight={animal.weightInKG}
+                                                    animal={animal}
+                                                    items={[]}
+                                                />
+                                            </Grid>
+                                        )
+                                    })
+                                }
+                            </ItemsCarousel>
+                        </Grid>
+                    )
+                        :
+                        null
+                }
+
+
             </Container>
             <Fab className={classes.callButton}>
                 <PhoneIcon className={classes.callIcon} />
@@ -105,6 +151,18 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         callIcon: {
             color: 'white'
+        },
+        roundBtn: {
+            borderRadius: '50%',
+            background: Colors.appRed,
+            color: 'white',
+            minWidth: 'unset',
+            width: 40,
+            height: 40,
+
+            "&:hover": {
+                background: Colors.appRed,
+            }
         }
     })
 );

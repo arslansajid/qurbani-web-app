@@ -13,14 +13,15 @@ interface Props {
     weight: number,
     price: number,
     animal: object,
+    items: any,
 }
 
-const AnimalCard: React.FC<Props> = ({ imageUrl, weight, price, animal }) => {
+const AnimalCard: React.FC<Props> = ({ imageUrl, weight, price, animal, items }) => {
     const classes = useStyles();
 
     return (
         <>
-        <Link to={{pathname: "/animal-detail", state: animal }}>
+        <Link to={{pathname: "/animal-detail", state: {animal, items} }}>
             <Card className={classes.root} elevation={0}>
                 <CardActionArea>
                     <CardMedia
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         // maxWidth: 350,
         margin: 10,
-        boxShadow: "0px 20px 60px rgba(0, 0, 0, 0.08)",
+        boxShadow: "0px 20px 20px rgba(0, 0, 0, 0.08)",
     },
     media: {
         height: 205,

@@ -37,7 +37,7 @@ const BuyPage: React.FC<Props> = () => {
             <Container maxWidth='xl' className={classes.container}>
                 <Box className={classes.filtersBox}>
                 <Grid container direction='row' spacing={0}>
-                    <Grid lg={12} md={12} sm={12} xs={12} item className={classes.center}>
+                    <Grid lg={12} md={12} sm={12} xs={12} item className={`${classes.center} ${classes.locationfilterContainer}`}>
                         <SelectDropdown
                             options={CitiesOptions}
                             defaultValue={!!city && Object.keys(city).length ? city : null}
@@ -120,6 +120,7 @@ const BuyPage: React.FC<Props> = () => {
                                         price={animal.price}
                                         weight={animal.weightInKG}
                                         animal={animal}
+                                        items={animals}
                                     />
                                 </Grid>
                             );
@@ -150,8 +151,17 @@ const useStyles = makeStyles((theme: Theme) =>
         filtersBox: {
             padding: theme.spacing(3, 0, 3, 0),
         },
+        locationfilterContainer: {
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(0, 0, 2, 0),
+            },
+        },
         filterContainer: {
             padding: theme.spacing(2, 2, 2, 0),
+
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(0, 0, 2, 0),
+            },
         },
         center: {
             display: 'flex',
