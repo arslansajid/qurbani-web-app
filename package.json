@@ -19,6 +19,7 @@
         "firebase": "^7.15.5",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
+        "react-dropzone": "^11.0.1",
         "react-helmet": "^5.2.1",
         "react-hook-form": "^5.7.2",
         "react-image-gallery": "^1.0.7",
@@ -29,6 +30,7 @@
         "react-scripts": "^3.4.0",
         "react-select": "^3.1.0",
         "react-star-ratings": "^2.3.0",
+        "styled-components": "^5.1.1",
         "typescript": "^3.8.3"
     },
     "scripts": {

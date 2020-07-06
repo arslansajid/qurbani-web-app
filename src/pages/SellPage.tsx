@@ -5,6 +5,7 @@ import Colors from '../styles/Colors';
 import SelectDropdown from "../components/Select/Select";
 import TextField from "../components/Textfield";
 import { CategoryOptions, CitiesOptions, UnitOptions, GenderOptions } from "../static/_data";
+import ImagePicker from "../components/ImagePicker"
 
 interface Props { }
 
@@ -15,6 +16,7 @@ const SellPage: React.FC<Props> = () => {
     const [gender, setGender] = React.useState({} as any);
     const [weightUnit, setWeightUnit] = React.useState({} as any);
     const [description, setDescription] = React.useState('');
+    const [image, setImage] = React.useState([]);
 
     return (
         <div className={classes.container}>
@@ -23,6 +25,9 @@ const SellPage: React.FC<Props> = () => {
                     <form>
                     <Grid container spacing={0} alignItems="center" justify="center">
                         <Grid lg={6} md={6} sm={12} xs={12} item>
+                            <div>
+                                <ImagePicker image={image} setImage={(value) => setImage(value)} />
+                            </div>
                             <div className={classes.inputRow}>
                                 <SelectDropdown
                                     options={CategoryOptions}
