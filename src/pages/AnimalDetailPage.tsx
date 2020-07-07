@@ -20,7 +20,8 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
     const animal = location.state.animal;
     const items = location.state.items;
     console.log("######## animal", animal)
-    const images = animal.image.length && animal.image.map((image) => {
+    let images = [];
+    images = animal.image.length && animal.image.map((image) => {
         let obj = {
             original: image,
             thumbnail: image,
@@ -35,15 +36,18 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
     return (
         <div className={classes.container}>
             <Container maxWidth='xl'>
-                <ImageGallery
-                    items={images}
-                    autoPlay={false}
-                    showPlayButton={false}
-                    showThumbnails={false}
-                    showFullscreenButton={true}
-                    showNav={true}
-                // thumbnailPosition={'left'}
-                />
+                {images.length && (
+                    <ImageGallery
+                        items={images}
+                        autoPlay={false}
+                        showPlayButton={false}
+                        showThumbnails={false}
+                        showFullscreenButton={true}
+                        showNav={true}
+                    // thumbnailPosition={'left'}
+                    />
+                )}
+                
                 <Box className={classes.filtersBox}>
                     <Grid container justify="space-between" alignItems="center">
                         <Typography gutterBottom variant='h5' component='h4'>Shakeel</Typography>
