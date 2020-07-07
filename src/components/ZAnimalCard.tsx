@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Colors from '../styles/Colors';
 import { makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import Placeholder from "../assets/images/placeholder.jpg";
 
 interface Props {
     imageUrl: string;
@@ -26,7 +27,7 @@ const AnimalCard: React.FC<Props> = ({ imageUrl, weight, price, animal, items })
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={imageUrl}
+                        image={!!imageUrl ? imageUrl : Placeholder}
                         title='Animal'
                     />
                     <CardContent>
