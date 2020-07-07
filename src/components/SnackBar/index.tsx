@@ -54,7 +54,7 @@ const SnackbarNotification: React.FC<Props> = (props: any) => {
 		<Portal>
 			<Snackbar
 				anchorOrigin={{
-					vertical: "top",
+					vertical: "bottom",
 					horizontal: "right"
 				}}
 				TransitionComponent={(props) => SlideTransition(props)}

@@ -71,7 +71,8 @@ const customSelectStyles = {
 
   valueContainer: base => ({
     ...base,
-    padding: "0 15px"
+    padding: "0 15px",
+    flexWrap: 'nowrap'
   }),
 
   placeholder: base => ({

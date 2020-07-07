@@ -8,7 +8,7 @@ import { createStyles } from '@material-ui/core/styles';
 
 const styles = createStyles(theme => ({
     success: {
-        backgroundColor: "#32a852"
+        backgroundColor: "#2e8b57"
     },
     error: {
         backgroundColor: "#c72c2c"

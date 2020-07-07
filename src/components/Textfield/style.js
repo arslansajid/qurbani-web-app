@@ -69,7 +69,7 @@ const textFieldStyles = () => ({
     borderRadius: '50%',
 
     "& input": {
-      textIndent: "10px",
+      textIndent: "15px",
       color: Colors.black,
       fontWeight: 400,
       fontSize: "14px",
@@ -95,7 +95,7 @@ const textFieldStyles = () => ({
     // },
 
     "& input": {
-      textIndent: "10px",
+      textIndent: "15px",
       color: Colors.black,
       fontWeight: 400,
       fontSize: "14px",
