@@ -16,13 +16,17 @@ function SelectDropdown(props) {
 	//Function called when ever the select change is called, e.g. value is remove or value is selected from select
 	const handleSelectChange = (option, meta) => {
 		const { onSelectAction } = props;
-		if (meta.action == 'select-option') {
-			//on Select action is function from props used to called when any option is selected and it passes the selected option to parent
+		if(!!props.multiple) {
 			onSelectAction(option);
-			setValue(option);
-		} else if (meta.action == 'clear') {
-			onSelectAction(null);
-			setValue('');
+		} else {
+			if (meta.action == 'select-option') {
+				//on Select action is function from props used to called when any option is selected and it passes the selected option to parent
+				onSelectAction(option);
+				setValue(option);
+			} else if (meta.action == 'clear') {
+				onSelectAction(null);
+				setValue('');
+			}
 		}
 	};
 	const {
