@@ -120,7 +120,8 @@ const SellPage: React.FC<Props> = () => {
 
     const handleCitiesDropDown = (value) => {
         setCity(value);
-        const cities = value.map(city => {
+        let cities = [];
+        !!value && value.length && value.map(city => {
             return city.value
         })
         setSelectedCities([...cities])
