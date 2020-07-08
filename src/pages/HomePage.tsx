@@ -8,26 +8,18 @@ import NewsLetter from '../components/ZNewsLetter';
 import NewsCard from '../components/ZNewsCard';
 import ZVideoCard from '../components/ZVideoCard';
 import { videos, news } from '../static/_data';
-import {getYoutubeVideos} from "../api";
+import { getYoutubeVideos } from "../api";
+import { Link } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 const HomePage: React.FC<Props> = () => {
     const classes = useStyles();
-    React.useEffect(() => {
-        getYoutubeVideos()
-        .then((res) => {
-            console.log("RESPONSE", res)
-        })
-        .catch((err) => {
-            console.log("ERROR", err)
-        })
-    }, [])
-    
+
     return (
         <div className='home'>
             {/* <Grid className={classes.container}> */}
-                <Header />
+            <Header />
             {/* </Grid> */}
             <Container className={classes.btnsContainer} maxWidth='xl'>
                 <Grid container className={classes.textCenter}>
@@ -254,7 +246,7 @@ const HomePage: React.FC<Props> = () => {
                     </Grid>
                 </Grid> */}
 
-                <Grid lg={6} md={12} sm={12} xs={12} item>
+                <Grid container className={classes.textCenter}>
                     <Typography className={classes.containerHeading}>
                         Recommended <span className={classes.textRed}>Animals</span>
                     </Typography>
@@ -293,13 +285,15 @@ const HomePage: React.FC<Props> = () => {
                     sm={12}
                     xs={12}
                     item>
-                    <Button
-                        className={classes.seeMoreButton}
-                        size='large'
-                        color='secondary'
-                        variant='contained'>
-                        See More
-                    </Button>
+                    <Link to="/buy">
+                        <Button
+                            className={classes.seeMoreButton}
+                            size='large'
+                            color='secondary'
+                            variant='contained'>
+                            See More
+                        </Button>
+                    </Link>
                 </Grid>
             </Container>
             <NewsLetter />

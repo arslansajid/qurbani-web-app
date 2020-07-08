@@ -118,7 +118,7 @@ const BuyPage: React.FC<Props> = () => {
 
                 <hr className={classes.seperator} />
                 
-                <Grid container direction='row' spacing={0} className={`${classes.filterContainer}`}>
+                <Grid container direction='row' spacing={0} className={`${classes.resultsContainer}`}>
                     <Grid container>
                         {animals.length ? animals.map((animal, index) => {
                             return (
@@ -169,6 +169,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(0, 0, 2, 0),
+            },
+        },
+        resultsContainer: {
+            padding: theme.spacing(2, 0, 2, 0),
+            minHeight: '50vh',
+
+            [theme.breakpoints.down('sm')]: {
+                minHeight: '25vh',
             },
         },
         center: {
