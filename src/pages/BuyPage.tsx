@@ -16,8 +16,10 @@ const BuyPage: React.FC<Props> = () => {
     const [price, setPrice] = React.useState({} as any);
     const [weight, setWeight] = React.useState({} as any);
     const [animals, setAnimals] = React.useState<any[]>([])
-
+    const [message, setMessage] = React.useState('Apply Filters to view animals!')
+    
     const searchAnimals = () => {
+        setMessage('Fetching results...');
         const animal = !!category && category?.value;
         const location = !!city && city?.value;
         const weightFilter = !!weight && weight?.value;
@@ -25,10 +27,14 @@ const BuyPage: React.FC<Props> = () => {
         getAnimalsByFilter(animal, location, weightFilter, priceFilter)
         .then((res) => {
             setAnimals([...res])
+            if(res.length === 0) {
+                setMessage('No Animals Found!');
+            }
         })
         .catch((err) => {
             console.log(err)
             window.alert("ERROR")
+            setMessage('No Animals Found!');
         })
     }
 
@@ -109,6 +115,8 @@ const BuyPage: React.FC<Props> = () => {
                     </Grid>
                 </Grid>
                 </Box>
+
+                <hr className={classes.seperator} />
                 
                 <Grid container direction='row' spacing={0} className={`${classes.filterContainer}`}>
                     <Grid container>
@@ -126,7 +134,7 @@ const BuyPage: React.FC<Props> = () => {
                             );
                         })
                         :
-                        null
+                        message
                     }
                     </Grid>
                 </Grid>
@@ -149,7 +157,7 @@ const useStyles = makeStyles((theme: Theme) =>
             borderRadius: '20px',
         },
         filtersBox: {
-            padding: theme.spacing(3, 0, 3, 0),
+            padding: theme.spacing(3, 0, 2, 0),
         },
         locationfilterContainer: {
             [theme.breakpoints.down('sm')]: {
@@ -169,6 +177,10 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'center',
             alignItems: 'center',
         },
+        seperator: {
+            color: Colors.placeHolderText,
+            margin: 0,
+        }
     })
 );
 
