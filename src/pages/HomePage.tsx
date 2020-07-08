@@ -5,10 +5,8 @@ import { Grid, Typography, Button } from '@material-ui/core';
 import Colors from '../styles/Colors';
 import Header from '../components/Header';
 import NewsLetter from '../components/ZNewsLetter';
-import NewsCard from '../components/ZNewsCard';
-import ZVideoCard from '../components/ZVideoCard';
+import RecommendedCard from '../components/ZHomeCard';
 import { videos, news } from '../static/_data';
-import { getYoutubeVideos } from "../api";
 import { Link } from "react-router-dom";
 
 interface Props { }
@@ -21,14 +19,13 @@ const HomePage: React.FC<Props> = () => {
             {/* <Grid className={classes.container}> */}
             <Header />
             {/* </Grid> */}
-            <Container className={classes.btnsContainer} maxWidth='xl'>
-                <Grid container className={classes.textCenter}>
+            <Container maxWidth='xl'>
+                <Grid container className={`${classes.textCenter} ${classes.sectionContainer}`}>
                     <Typography className={`${classes.containerHeading}`}>
                         Most <span className={classes.textRed}> Viewed</span> Animals
                     </Typography>
                     <Typography className={`${classes.headingDescription}`}>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been.
+                        Here is the list of most viewed animals on asaanqurban.com
                     </Typography>
                 </Grid>
                 {/* videos section goes here... */}
@@ -37,222 +34,28 @@ const HomePage: React.FC<Props> = () => {
                         {videos.map((video, index) => {
                             return (
                                 <Grid key={index} item lg={4} md={4} sm={6} xs={12}>
-                                    <ZVideoCard imageUrl={video.url} />
+                                    <RecommendedCard
+                                        price={200000}
+                                        weight={600}
+                                        location={'Islamabad'}
+                                        imageUrl={video.url}
+                                        isMostViewed={true}
+                                        isRecommended={false}
+                                    />
                                 </Grid>
                             );
                         })}
                     </Grid>
                 </Grid>
-            </Container>
+            {/* </Container> */}
 
-            {/* bigger images section goes here */}
-            {/* <Grid
-                container
-                className={classes.seeMoreButtonContainer}
-                justify='center'
-                alignItems='center'
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                item>
-                <Button
-                    className={classes.seeMoreButton}
-                    size='large'
-                    color='secondary'
-                    variant='contained'>
-                    See More
-                </Button>
-            </Grid> */}
-
-            {/* what we do section goes here */}
-
-            <Container maxWidth='xl'>
-                {/* <Grid spacing={5} container className={classes.section}>
-                    <Grid lg={6} md={6} sm={12} xs={12} item style={{ position: 'relative' }}>
-                        <div className={classes.redBorder} />
-                        <div className={classes.imageLeftContainer}>
-                            <img
-                                alt='story-img'
-                                className={classes.image}
-                                src={require('../assets/images/story.png')}
-                            />
-                        </div>
-                    </Grid>
-                    <Grid className={classes.textCenter} lg={6} md={6} sm={12} xs={12} item>
-                        <div className='content'>
-                            <Typography className={classes.containerHeading}>
-                                <span className={classes.textRed}>What</span> We Do
-                            </Typography>
-                            <Typography className={classes.headingDescription}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting
-                                industry. Lorem Ipsum has been.
-                            </Typography>
-                            <Grid container>
-                                <Grid lg={1} md={1} sm={2} xs={2} item>
-                                    <img
-                                        alt='bullet-1'
-                                        className={classes.icon}
-                                        src={require('../assets/images/b-1@2x.png')}
-                                    />
-                                </Grid>
-                                <Grid lg={11} md={11} sm={10} xs={10} item>
-                                    <Typography className={classes.descriptionHeading}>
-                                        How We <span className={classes.textRed}>Generate</span> The
-                                        Ideas
-                                    </Typography>
-                                    <Typography className={classes.descriptionText}>
-                                        It is a long established fact that a reader will be
-                                        distracted by the readable content of a page when looking at
-                                        its layout. The point of using Lorem Ipsum is that it has a
-                                        more-or-less normal distribution of letters, as opposed.
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid lg={1} md={1} sm={2} xs={2} item>
-                                    <img
-                                        alt='bullet-2'
-                                        className={classes.icon}
-                                        src={require('../assets/images/b-2@2x.png')}
-                                    />
-                                </Grid>
-                                <Grid lg={11} md={11} sm={10} xs={10} item>
-                                    <Typography className={classes.descriptionHeading}>
-                                        We <span className={classes.textRed}>Distribute</span> The
-                                        Matches
-                                    </Typography>
-                                    <Typography className={classes.descriptionText}>
-                                        Contrary to popular belief, Lorem Ipsum is not simply random
-                                        text. It has roots in a piece of classical Latin literature
-                                        from 45 BC, making it over 2000 years old.
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid lg={1} md={1} sm={2} xs={2} item>
-                                    <img
-                                        alt='bullet-3'
-                                        className={classes.icon}
-                                        src={require('../assets/images/b-3@2x.png')}
-                                    />
-                                </Grid>
-                                <Grid lg={11} md={11} sm={10} xs={10} item>
-                                    <Typography className={classes.descriptionHeading}>
-                                        We Enlarge Your{' '}
-                                        <span className={classes.textRed}>Knowledge</span>
-                                    </Typography>
-                                    <Typography className={classes.descriptionText}>
-                                        Contrary to popular belief, Lorem Ipsum is not simply random
-                                        text. It has roots in a piece of classical Latin literature
-                                        from 45 BC, making it over 2000 years old.
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Button
-                                className={classes.seeMoreButton}
-                                size='large'
-                                color='secondary'
-                                variant='contained'>
-                                Contact Us
-                            </Button>
-                            <Button className={classes.learnMoreButton} size='large' variant='text'>
-                                Learn More
-                            </Button>
-                        </div>
-                    </Grid>
-                </Grid> */}
-
-                {/* story section goes here */}
-                {/* <Grid className={classes.section} container>
-                    <Grid className={classes.textCenter} lg={6} md={6} sm={12} xs={12} item>
-                        <div className='content'>
-                            <Typography className={classes.containerHeading}>
-                                Our <span className={classes.textRed}>Story</span>
-                            </Typography>
-                            <Typography className={classes.headingDescription}>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting
-                                industry. Lorem Ipsum has been.
-                            </Typography>
-                            <Grid container>
-                                <Grid lg={1} md={1} sm={2} xs={2} item>
-                                    <img
-                                        alt='bullet-4'
-                                        className={classes.icon}
-                                        src={require('../assets/images/b-4@2x.png')}
-                                    />
-                                </Grid>
-                                <Grid lg={11} md={11} sm={10} xs={10} item>
-                                    <Typography className={classes.descriptionHeading}>
-                                        How We <span className={classes.textRed}>Developed</span>{' '}
-                                        Ourselve
-                                    </Typography>
-                                    <Typography className={classes.descriptionText}>
-                                        It is a long established fact that a reader will be
-                                        distracted by the readable content of a page when looking at
-                                        its layout. The point of using Lorem Ipsum is that it has a
-                                        more-or-less normal distribution of letters, as opposed.
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid container>
-                                <Grid lg={1} md={1} sm={2} xs={2} item>
-                                    <img
-                                        alt='bullet-5'
-                                        className={classes.icon}
-                                        src={require('../assets/images/b-5@2x.png')}
-                                    />
-                                </Grid>
-                                <Grid lg={11} md={11} sm={10} xs={10} item>
-                                    <Typography className={classes.descriptionHeading}>
-                                        We <span className={classes.textRed}>Believe</span> in
-                                        Quality
-                                    </Typography>
-                                    <Typography className={classes.descriptionText}>
-                                        Contrary to popular belief, Lorem Ipsum is not simply random
-                                        text. It has roots in a piece of classical Latin literature
-                                        from 45 BC, making it over 2000 years old.
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            <Button
-                                className={classes.seeMoreButton}
-                                size='large'
-                                color='secondary'
-                                variant='contained'>
-                                Contact Us
-                            </Button>
-                            <Button className={classes.learnMoreButton} size='large' variant='text'>
-                                Learn More
-                            </Button>
-                        </div>
-                    </Grid>
-                    <Grid
-                        className={classes.contentSection}
-                        lg={6}
-                        md={6}
-                        sm={12}
-                        xs={12}
-                        item
-                        style={{ position: 'relative' }}>
-                        <div className={classes.redBorder} />
-                        <div className={classes.imageRightContainer}>
-                            <img
-                                alt='story-img'
-                                className={classes.image}
-                                src={require('../assets/images/story.png')}
-                            />
-                        </div>
-                    </Grid>
-                </Grid> */}
-
-                <Grid container className={classes.textCenter}>
+            {/* <Container maxWidth='xl'> */}
+                <Grid container className={`${classes.textCenter} ${classes.sectionContainer}`}>
                     <Typography className={classes.containerHeading}>
                         Recommended <span className={classes.textRed}>Animals</span>
                     </Typography>
                     <Typography className={classes.headingDescription}>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been.
+                        Get the most recommended animals from asaanqurban.com
                     </Typography>
                 </Grid>
 
@@ -266,11 +69,15 @@ const HomePage: React.FC<Props> = () => {
                                 md={4}
                                 sm={6}
                                 xs={12}
-                                container
-                                alignItems='center'
-                                direction='column'
                                 item>
-                                <NewsCard imageUrl={article.url} />
+                                <RecommendedCard
+                                    price={200000}
+                                    weight={600}
+                                    location={'Islamabad'}
+                                    imageUrl={article.url}
+                                    isMostViewed={false}
+                                    isRecommended={true}
+                                />
                             </Grid>
                         );
                     })}
@@ -306,75 +113,8 @@ const useStyles = makeStyles((theme: Theme) =>
         container: {
             // marginBottom: '100px',
         },
-        imgContainer: {
-            width: '100%',
-            height: '100%',
-            position: 'relative',
-            minHeight: 620,
-        },
-        landingImage: {
-            position: 'absolute',
-            right: '-1px',
-            top: '64px',
-            width: '50%',
-            objectFit: 'cover',
-            // filter: 'brightness(0.6)',
-
-            '@media (min-width: 1440px)': {
-                width: '50%'
-            },
-
-            "@media only screen and (min-width:1441px) and (max-width:2560px)": {
-                width: 'unset',
-                maxWidth: '1440px !important',
-            },
-
-            [theme.breakpoints.down('md')]: {
-                display: 'none',
-            },
-        },
-        horseIcon: {
-            width: 46,
-            height: 96,
-        },
-        landingHeading: {
-            fontSize: '3.75em',
-            fontWeight: 600,
-            fontColor: Colors.black,
-            marginBottom: 28,
-        },
-        landingHeadingRed: {
-            fontSize: '1.5em',
-            fontWeight: 600,
-            color: Colors.appRed,
-            marginBottom: 28,
-        },
-        landingDescription: {
-            fontSize: '1.15em',
-            fontColor: Colors.black,
-            marginBottom: 28,
-        },
-        btnsContainer: {
+        sectionContainer: {
             marginTop: 30,
-        },
-        // textCenter: {
-        //     textAlign: 'center'
-        // },
-        // imagefilter: {
-        //     "&:after" : {
-        //       backgroundColor: "rgba(0, 0, 0, 0.5)",
-        //       content: "",
-        //       display: "block",
-        //       height: "100%",
-        //       left: 0,
-        //       position: "absolute",
-        //       top: 0,
-        //       width: "100%",
-        //       zIndex: 10,
-        //     }
-        // },
-        section: {
-            marginBottom: '4em',
         },
         heading: {
             color: Colors.white,
@@ -395,7 +135,7 @@ const useStyles = makeStyles((theme: Theme) =>
         headingDescription: {
             color: '#8E8E8E',
             fontSize: 20,
-            margin: '1em 0 2em 0',
+            margin: '0.5em 0 1.5em 0',
         },
         descriptionHeading: {
             fontSize: '1.15em',
