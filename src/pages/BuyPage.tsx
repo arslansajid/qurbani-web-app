@@ -5,119 +5,143 @@ import Colors from '../styles/Colors';
 import SelectDropdown from "../components/Select/Select";
 import ZAnimalCard from "../components/ZAnimalCard";
 import { CategoryOptions, CitiesOptions, WeightOptions, PriceOptions } from "../static/_data";
-import {getAnimalsByFilter} from "../Backend/Services/animalService";
+import { getAnimalsByFilter } from "../Backend/Services/animalService";
+import { useForm } from "react-hook-form";
 
 interface Props { }
 
 const BuyPage: React.FC<Props> = () => {
     const classes = useStyles();
+    const { control, handleSubmit, errors } = useForm();
     const [category, setCategory] = React.useState({} as any)
     const [city, setCity] = React.useState({} as any);
     const [price, setPrice] = React.useState({} as any);
     const [weight, setWeight] = React.useState({} as any);
     const [animals, setAnimals] = React.useState<any[]>([])
     const [message, setMessage] = React.useState('Apply Filters to view animals!')
-    
-    const searchAnimals = () => {
+
+    const searchAnimals = (data) => {
+        const {category, city, price, weight} = data;
+        console.log("FORM SUBMITTED")
         setMessage('Fetching results...');
         const animal = !!category && category?.value;
         const location = !!city && city?.value;
         const weightFilter = !!weight && weight?.value;
         const priceFilter = !!price && price?.value;
         getAnimalsByFilter(animal, location, weightFilter, priceFilter)
-        .then((res) => {
-            setAnimals([...res])
-            if(res.length === 0) {
+            .then((res) => {
+                setAnimals([...res])
+                if (res.length === 0) {
+                    setMessage('No Animals Found!');
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                window.alert("ERROR")
                 setMessage('No Animals Found!');
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-            window.alert("ERROR")
-            setMessage('No Animals Found!');
-        })
+            })
     }
+
+    console.log("ERROR", errors)
 
     return (
         <div className={classes.container}>
             <Container maxWidth='xl' className={classes.container}>
                 <Box className={classes.filtersBox}>
-                <Grid container direction='row' spacing={0}>
-                    <Grid lg={12} md={12} sm={12} xs={12} item className={`${classes.center} ${classes.locationfilterContainer}`}>
-                        <SelectDropdown
-                            options={CitiesOptions}
-                            defaultValue={!!city && Object.keys(city).length ? city : null}
-                            isDisabled={false}
-                            isClearable={false}
-                            name={'category-select'}
-                            label={null}
-                            labelAlign={'left'}
-                            labelWidth={150}
-                            styles={{}}
-                            onSelectAction={(value) => setCity(value)}
-                            placeholder={'Select City'}
-                        />
+                <form onSubmit={handleSubmit(searchAnimals)}>
+                    <Grid container direction='row' spacing={0}>
+                            <Grid lg={12} md={12} sm={12} xs={12} item className={`${classes.center} ${classes.locationfilterContainer}`}>
+                                <SelectDropdown
+                                    options={CitiesOptions}
+                                    defaultValue={!!city && Object.keys(city).length ? city : null}
+                                    isDisabled={false}
+                                    isClearable={false}
+                                    name={'city'}
+                                    label={null}
+                                    labelAlign={'left'}
+                                    labelWidth={150}
+                                    styles={{}}
+                                    onSelectAction={(value) => setCity(value)}
+                                    placeholder={'Select City'}
+                                    control={control}
+                                    rules={{ required: true }}
+                                    error={errors?.city ? true : false}
+                                    errorMessage={'Required'}
+                                />
+                            </Grid>
+                            <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
+                                <SelectDropdown
+                                    options={CategoryOptions}
+                                    defaultValue={!!category && Object.keys(category).length ? category : null}
+                                    isDisabled={false}
+                                    isClearable={false}
+                                    name={'category'}
+                                    label={null}
+                                    labelAlign={'left'}
+                                    labelWidth={150}
+                                    styles={{}}
+                                    onSelectAction={(value) => setCategory(value)}
+                                    placeholder={'Select Category'}
+                                    control={control}
+                                    rules={{ required: true }}
+                                    error={errors?.category ? true : false}
+                                    errorMessage={'Required'}
+                                />
+                            </Grid>
+                            <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
+                                <SelectDropdown
+                                    options={WeightOptions}
+                                    defaultValue={!!weight && Object.keys(weight).length ? weight : null}
+                                    isDisabled={false}
+                                    name={'weight'}
+                                    label={null}
+                                    labelAlign={'left'}
+                                    labelWidth={150}
+                                    styles={{}}
+                                    onSelectAction={(value) => setWeight(value)}
+                                    placeholder={'Select Weight'}
+                                    control={control}
+                                    isClearable={true}
+                                    // rules={{ required: true }}
+                                    // error={errors?.weight ? true : false}
+                                    // errorMessage={'Required'}
+                                />
+                            </Grid>
+                            <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
+                                <SelectDropdown
+                                    options={PriceOptions}
+                                    defaultValue={!!price && Object.keys(price).length ? price : null}
+                                    isDisabled={false}
+                                    name={'price'}
+                                    label={null}
+                                    labelAlign={'left'}
+                                    labelWidth={150}
+                                    styles={{}}
+                                    onSelectAction={(value) => setPrice(value)}
+                                    placeholder={'Select Price'}
+                                    control={control}
+                                    isClearable={true}
+                                    // rules={{ required: true }}
+                                    // error={errors?.price ? true : false}
+                                    // errorMessage={'Required'}
+                                />
+                            </Grid>
+                            <Grid lg={3} md={3} sm={12} xs={12} item className={classes.center}>
+                                <Button
+                                    className={classes.searchButton}
+                                    type="submit"
+                                    size='medium'
+                                    color='secondary'
+                                    variant='contained'>
+                                    Search Animals
+                                </Button>
+                            </Grid>
                     </Grid>
-                    <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
-                        <SelectDropdown
-                            options={CategoryOptions}
-                            defaultValue={!!category && Object.keys(category).length ? category : null}
-                            isDisabled={false}
-                            isClearable={false}
-                            name={'category-select'}
-                            label={null}
-                            labelAlign={'left'}
-                            labelWidth={150}
-                            styles={{}}
-                            onSelectAction={(value) => setCategory(value)}
-                            placeholder={'Select Category'}
-                        />
-                    </Grid>
-                    <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
-                        <SelectDropdown
-                            options={WeightOptions}
-                            defaultValue={!!weight && Object.keys(weight).length ? weight : null}
-                            isDisabled={false}
-                            isClearable={false}
-                            name={'category-select'}
-                            label={null}
-                            labelAlign={'left'}
-                            labelWidth={150}
-                            styles={{}}
-                            onSelectAction={(value) => setWeight(value)}
-                            placeholder={'Select Weight'}
-                        />
-                    </Grid>
-                    <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
-                        <SelectDropdown
-                            options={PriceOptions}
-                            defaultValue={!!price && Object.keys(price).length ? price : null}
-                            isDisabled={false}
-                            isClearable={false}
-                            name={'category-select'}
-                            label={null}
-                            labelAlign={'left'}
-                            labelWidth={150}
-                            styles={{}}
-                            onSelectAction={(value) => setPrice(value)}
-                            placeholder={'Select Price'}
-                        />
-                    </Grid>
-                    <Grid lg={3} md={3} sm={12} xs={12} item className={classes.center}>
-                        <Button
-                            className={classes.searchButton}
-                            onClick={() => searchAnimals()}
-                            size='medium'
-                            color='secondary'
-                            variant='contained'>
-                            Search Animals
-                    </Button>
-                    </Grid>
-                </Grid>
+                    </form>
                 </Box>
 
                 <hr className={classes.seperator} />
-                
+
                 <Grid container direction='row' spacing={0} className={`${classes.resultsContainer}`}>
                     <Grid container>
                         {animals.length ? animals.map((animal, index) => {
@@ -133,9 +157,9 @@ const BuyPage: React.FC<Props> = () => {
                                 </Grid>
                             );
                         })
-                        :
-                        message
-                    }
+                            :
+                            message
+                        }
                     </Grid>
                 </Grid>
             </Container>
