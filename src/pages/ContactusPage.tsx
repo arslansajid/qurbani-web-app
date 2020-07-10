@@ -114,6 +114,7 @@ const ContactUs: React.FC<Props> = () => {
                                     <Input
                                         required
                                         id='first-name'
+                                        name="name"
                                         value={name}
                                         placeholder={'John Smith'}
                                         label={'Name'}
@@ -123,12 +124,16 @@ const ContactUs: React.FC<Props> = () => {
                                         // customClassName="whiteInput"
                                         // error={true}
                                         errorMessage={'This field is required'}
+                                        control={control}
+                                        rules={{ required: true }}
+                                        // error={errors?.mail ? true : false}
                                     />
                                 </div>
                                 <div className={classes.inputRow}>
                                     <Input
                                         required
                                         id='user-email'
+                                        name="mail"
                                         type='email'
                                         value={email}
                                         placeholder={'sample@domain.com'}
@@ -138,6 +143,9 @@ const ContactUs: React.FC<Props> = () => {
                                         }) => setEmail(e.target.value)}
                                         // customClassName="whiteInput"
                                         errorMessage={'This field is required'}
+                                        control={control}
+                                        rules={{ required: true }}
+                                        // error={errors?.mail ? true : false}
                                     />
                                 </div>
                                 <div className={classes.inputRow}>
@@ -145,6 +153,7 @@ const ContactUs: React.FC<Props> = () => {
                                         required
                                         id='user-message'
                                         type='text'
+                                        name="message"
                                         value={message}
                                         placeholder={'Type here...'}
                                         label={'Message'}
@@ -153,6 +162,9 @@ const ContactUs: React.FC<Props> = () => {
                                         }) => setMessage(e.target.value)}
                                         // customClassName="whiteInput"
                                         errorMessage={'This field is required'}
+                                        control={control}
+                                        rules={{ required: true }}
+                                        // error={errors?.message ? true : false}
                                     />
                                 </div>
                                 <Button
