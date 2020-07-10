@@ -42,8 +42,6 @@ const BuyPage: React.FC<Props> = () => {
             })
     }
 
-    console.log("ERROR", errors)
-
     return (
         <div className={classes.container}>
             <Container maxWidth='xl' className={classes.container}>

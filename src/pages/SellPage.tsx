@@ -11,6 +11,7 @@ import { firebase } from '../Backend/firebase';
 import SnackBar from "../components/SnackBar";
 import Resizer from 'react-image-file-resizer';
 import { v4 as uuidv4 } from 'uuid';
+import { useForm } from "react-hook-form";
 
 const imageResizeFileUri = ({ file }: { file: File }) =>
     new Promise((resolve) => {
@@ -32,6 +33,8 @@ interface Props { }
 
 const SellPage: React.FC<Props> = () => {
     const classes = useStyles();
+    const { control, handleSubmit, errors } = useForm();
+
     const [category, setCategory] = React.useState({} as any);
     const [city, setCity] = React.useState({} as any);
     const [selectedCities, setSelectedCities] = React.useState([] as any);
@@ -54,8 +57,8 @@ const SellPage: React.FC<Props> = () => {
         setImages([...images, value]);
     }
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
+        console.log("FORM SUBMITTED", data)
         setIsLoading(true);
         let selectedAnimalCategory = category.value;
 
@@ -140,11 +143,13 @@ const SellPage: React.FC<Props> = () => {
         setImages([]);
     }
 
+    console.log("######## ERRORS", errors)
+
     return (
         <div className={classes.container}>
             <Container maxWidth='xl' className={classes.container}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Box className={classes.filtersBox}>
-                    <form onSubmit={onSubmit}>
                         <Grid container spacing={0} alignItems="center" justify="center">
                             <Grid lg={6} md={6} sm={12} xs={12} item>
                                 <div>
@@ -162,13 +167,17 @@ const SellPage: React.FC<Props> = () => {
                                             defaultValue={!!category && Object.keys(category).length ? category : null}
                                             isDisabled={false}
                                             isClearable={false}
-                                            name={'category-select'}
+                                            name={'category'}
                                             label={null}
                                             labelAlign={'left'}
                                             labelWidth={150}
                                             styles={{}}
                                             onSelectAction={(value) => setCategory(value)}
                                             placeholder={'Category'}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.category ? true : false}
+                                            errorMessage={'Required'}
                                         // required
                                         />
                                     </Grid>
@@ -186,7 +195,7 @@ const SellPage: React.FC<Props> = () => {
                                             defaultValue={!!city && Object.keys(city).length ? city : null}
                                             isDisabled={false}
                                             isClearable={false}
-                                            name={'category-select'}
+                                            name={'city'}
                                             label={null}
                                             labelAlign={'left'}
                                             labelWidth={150}
@@ -194,6 +203,10 @@ const SellPage: React.FC<Props> = () => {
                                             onSelectAction={(value) => handleCitiesDropDown(value)}
                                             placeholder={'City'}
                                             multiple={true}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.city ? true : false}
+                                            errorMessage={'Required'}
                                         // required
                                     />
                                     </Grid>
@@ -209,9 +222,14 @@ const SellPage: React.FC<Props> = () => {
                                         <TextField
                                             type="number"
                                             customClassName="form-input"
-                                            required
+                                            // required
                                             value={price}
+                                            name={"price"}
                                             onChange={(e) => setPrice(e.target.value)}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.price ? true : false}
+                                            errorMessage={'Required'}
                                         />
                                     </Grid>
                                 </Grid>
@@ -226,9 +244,14 @@ const SellPage: React.FC<Props> = () => {
                                         <TextField
                                             type="number"
                                             customClassName="form-input"
-                                            required
+                                            // required
                                             value={contact}
+                                            name={"contact"}
                                             onChange={(e) => setContact(e.target.value)}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.contact ? true : false}
+                                            errorMessage={'Required'}
                                         />
                                     </Grid>
                                 </Grid>
@@ -244,8 +267,13 @@ const SellPage: React.FC<Props> = () => {
                                             type="number"
                                             customClassName="form-input"
                                             value={weight}
+                                            name={"weight"}
                                             onChange={(e) => setWeight(e.target.value)}
-                                            required
+                                            // required
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.weight ? true : false}
+                                            errorMessage={'Required'}
                                         />
                                     </Grid>
                                 </Grid>
@@ -262,13 +290,17 @@ const SellPage: React.FC<Props> = () => {
                                             defaultValue={!!weightUnit && Object.keys(weightUnit).length ? weightUnit : null}
                                             isDisabled={false}
                                             isClearable={false}
-                                            name={'category-select'}
+                                            name={'weightUnit'}
                                             label={null}
                                             labelAlign={'left'}
                                             labelWidth={50}
                                             styles={{}}
                                             onSelectAction={(value) => setWeightUnit(value)}
                                             placeholder={'Unit'}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.weightUnit ? true : false}
+                                            errorMessage={'Required'}
                                         />
                                     </Grid>
                                 </Grid>
@@ -285,13 +317,17 @@ const SellPage: React.FC<Props> = () => {
                                             defaultValue={!!gender && Object.keys(gender).length ? gender : null}
                                             isDisabled={false}
                                             isClearable={false}
-                                            name={'category-select'}
+                                            name={'gender'}
                                             label={null}
                                             labelAlign={'left'}
                                             labelWidth={150}
                                             styles={{}}
                                             onSelectAction={(value) => setGender(value)}
                                             placeholder={'Gender'}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.gender ? true : false}
+                                            errorMessage={'Required'}
                                         // required
                                         />
                                     </Grid>
@@ -308,9 +344,14 @@ const SellPage: React.FC<Props> = () => {
                                             id='user-message'
                                             type='text'
                                             value={description}
+                                            name={"description"}
                                             placeholder={'Add Description...'}
                                             label={null}
                                             onChange={(e) => setDescription(e.target.value)}
+                                            control={control}
+                                            rules={{ required: true }}
+                                            error={errors?.description ? true : false}
+                                            errorMessage={'Required'}
                                         />
                                     </Grid>
                                 </Grid>
@@ -335,8 +376,8 @@ const SellPage: React.FC<Props> = () => {
                                 Upload
                             </Button>
                         </Grid>
-                    </form>
                 </Box>
+                </form>
             </Container>
 
             {showSnackBar && (
