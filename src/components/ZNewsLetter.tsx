@@ -8,19 +8,21 @@ import { makeStyles } from '@material-ui/core';
 import Colors from '../styles/Colors';
 import SnackBar from "../components/SnackBar";
 import axios from 'axios';
+import { useForm } from "react-hook-form";
 
 interface Props { }
 
 const NewsLetter: React.FC<Props> = () => {
     const classes = useStyles();
+    const { control, handleSubmit, errors } = useForm();
+
     const [showSnackBar, setShowSnackBar] = React.useState<boolean>(false);
     const [snackBarMessage, setSnackBarMessage] = React.useState("");
     const [snackBarVariant, setSnackBarVariant] = React.useState("success");
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const [email, setEmail] = useState("");
 
-    const onSubmit = async event => {
-        event.preventDefault();
+    const onSubmit = async data => {
         const userData = {
             'email': email,
         }
@@ -67,15 +69,19 @@ const NewsLetter: React.FC<Props> = () => {
                             Subscribe Our Newsletter
                     </Typography>
                         <div className={classes.relative}>
-                            <form key={'form'} onSubmit={(e) => onSubmit(e)}>
+                            <form key={'form'} onSubmit={handleSubmit(onSubmit)}>
                                 <Input
-                                    required
                                     id="email"
+                                    name="email"
                                     type="email"
                                     value={email}
                                     placeholder={"Your email here..."}
                                     onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)}
                                     customClassName="whiteInput"
+                                    control={control}
+                                    rules={{ required: true }}
+                                    error={errors?.email ? true : false}
+                                    errorMessage={'Required'}
                                 />
                                 <div className={classes.btnContainer}>
                                     <Button disabled={isLoading} className={classes.submitBtn} type="submit" size="large" color="secondary" variant="contained">
