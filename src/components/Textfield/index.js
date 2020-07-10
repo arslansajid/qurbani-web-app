@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Controller } from "react-hook-form";
 
 //Custom textfield component used across application - Do not make changes to this file
 function CustomTextfield(props) {
@@ -17,11 +18,14 @@ function CustomTextfield(props) {
     formControlProps,
     id,
     label,
+    name,
     value,
     labelWidth,
     disabled,
     customClassName,
     pattern,
+    control,
+		rules,
     ...rest
   } = props;
 
@@ -50,6 +54,8 @@ function CustomTextfield(props) {
             )}
           </div>
         }
+        <Controller
+				as={
         <OutlinedInput
           id={id}
           value={value}
@@ -57,19 +63,29 @@ function CustomTextfield(props) {
           disabled={disabled}
           // InputProps={{ disableUnderline: true }}
           InputProps={{
-            classes: { input: customClassName === "whiteInput" ? classes.whiteTextField : customClassName === "form-input" ? classes.formInput : classes.textField },
+            classes: { input: customClassName === "whiteInput" ? classes.whiteTextField : (customClassName === "form-input" && error) ? classes.formInputError : classes.formInput },
             disableUnderline: true,
           }}
           inputProps={{ pattern: pattern }}
           multiline={id === "user-message" ? true : false}
           {...rest}
         />
+        }
+          rules={rules}
+          // margin='dense'
+          // variant='outlined'
+          fullWidth
+          label={label}
+          name={name}
+          control={control}
+          defaultValue={value}
+			/>
       </div>
-      {
+      {/* {
         <FormHelperText className={classes.errorCenter} id={id}>
           {error ? errorMessage : ""}
         </FormHelperText>
-      }
+      } */}
     </FormControl>
   );
 }

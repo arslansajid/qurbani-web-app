@@ -76,6 +76,22 @@ const textFieldStyles = () => ({
       lineHeight: "20px"
     },
   },
+  formInputContainerError: {
+    width: '100%',
+    height: 30,
+    borderRadius: '50%',
+
+    "& input": {
+      textIndent: "15px",
+      color: 'red',
+      fontWeight: 400,
+      fontSize: "14px",
+      lineHeight: "20px"
+    },
+  },
+  formInputError: {
+    border: "2px solid red",
+  },
   formInput: {
     background: 'white',
     borderRadius: "20px",
