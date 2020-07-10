@@ -153,10 +153,10 @@ const useStyles = makeStyles((theme) => ({
     btnContainer: {
         position: 'absolute',
         background: "white",
-        right: 0,
-        top: -5,
+        right: 6,
+        top: 4,
         minWidth: 150,
-        padding: 9,
+        // padding: 9,
         borderRadius: 12,
     },
     submitBtn: {
