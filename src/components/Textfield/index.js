@@ -29,6 +29,16 @@ function CustomTextfield(props) {
     ...rest
   } = props;
 
+  let CLASS;
+  if(customClassName === "whiteInput") {
+    CLASS = classes.whiteTextField
+  } else if(customClassName === "form-input" && error) {
+    CLASS = classes.formInputError
+  } else if(customClassName === "form-input" && !error) {
+    CLASS = classes.formInput
+  } else {
+    CLASS = classes.textField
+  }
   return (
     <FormControl
       error={error}
@@ -59,11 +69,11 @@ function CustomTextfield(props) {
         <OutlinedInput
           id={id}
           value={value}
-          className={customClassName === "whiteInput" ? classes.whiteTextField : customClassName === "form-input" ? classes.formInputContainer : classes.textField}
+          className={CLASS}
           disabled={disabled}
           // InputProps={{ disableUnderline: true }}
           InputProps={{
-            classes: { input: customClassName === "whiteInput" ? classes.whiteTextField : (customClassName === "form-input" && error) ? classes.formInputError : classes.formInput },
+            // classes: { input: CLASS},
             disableUnderline: true,
           }}
           inputProps={{ pattern: pattern }}

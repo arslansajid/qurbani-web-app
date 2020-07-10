@@ -90,7 +90,34 @@ const textFieldStyles = () => ({
     },
   },
   formInputError: {
+    background: 'white',
+    borderRadius: "20px",
+    display: "flex",
+    justifyContent: "center",
     border: "2px solid red",
+    width: '100%',
+
+    flex: 1,
+    minHeight: "36px",
+    maxHeight: "100px", //added for textarea message  
+    width: "100%",
+    marginTop: '0px !important',
+
+    // "&:invalid": {
+    //   border: "red solid 2px"
+    // },
+
+    "& input": {
+      textIndent: "15px",
+      color: 'red',
+      fontWeight: 400,
+      fontSize: "14px",
+      lineHeight: "20px"
+    },
+    '&::placeholder': {
+      color: 'red',
+      fontWeight: 500,
+    }
   },
   formInput: {
     background: 'white',
@@ -101,7 +128,7 @@ const textFieldStyles = () => ({
     width: '100%',
 
     flex: 1,
-    minHeight: "20px",
+    minHeight: "36px",
     maxHeight: "100px", //added for textarea message  
     width: "100%",
     marginTop: '0px !important',
