@@ -59,7 +59,7 @@ const NewsLetter: React.FC<Props> = () => {
                     alignItems="center"
                     container lg={12} md={12} sm={12} xs={12} item
                 >
-                    <Grid lg={6} md={6} sm={12} xs={12} item>
+                    <Grid lg={8} md={8} sm={12} xs={12} item>
                         <Typography className={classes.connected}>
                             Let us stay connected
                     </Typography>
@@ -83,11 +83,6 @@ const NewsLetter: React.FC<Props> = () => {
                                     </Button>
                                 </div>
                             </form>
-                        </div>
-                    </Grid>
-                    <Grid className={classes.imageSection} lg={6} md={6} sm={12} xs={12} item>
-                        <div className={classes.imageContainer}>
-                            <img alt="news-letter" className={classes.image} src={require("../assets/images/nl@2x.png")} />
                         </div>
                     </Grid>
                 </Grid>
@@ -142,12 +137,12 @@ const useStyles = makeStyles((theme) => ({
     },
     connected: {
         fontSize: '1.2em',
-        color: Colors.appRed
+        color: Colors.white
     },
     subscribe: {
         fontWeight: 500,
         fontSize: '2.3em',
-        color: Colors.appRed,
+        color: Colors.white,
     },
     btnContainer: {
         position: 'absolute',

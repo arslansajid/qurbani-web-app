@@ -251,8 +251,8 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 30,
         },
         seeMoreButtonContainer: {
-            marginTop: 90,
-            marginBottom: 150,
+            marginTop: '5em',
+            marginBottom: '5em',
         },
         seeMoreButton: {
             background: Colors.appRed,
