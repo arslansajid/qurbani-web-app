@@ -58,14 +58,14 @@ const customSelectStyles = {
 
   indicatorSeparator: base => ({
     ...base,
-    backgroundColor: '#EDEDED'
+    backgroundColor: 'red'
   }),
   dropdownIndicator: base => ({
     ...base,
     padding: "5px 8px",
-    color: '#EDEDED',
+    color: 'red',
     "&:hover": {
-      color: '#EDEDED',
+      color: 'red',
     }
   }),
 
