@@ -33,7 +33,7 @@ interface Props { }
 
 const SellPage: React.FC<Props> = () => {
     const classes = useStyles();
-    const { control, handleSubmit, errors } = useForm();
+    const { control, handleSubmit, errors, reset } = useForm();
 
     const [category, setCategory] = React.useState({} as any);
     const [city, setCity] = React.useState({} as any);
@@ -51,15 +51,18 @@ const SellPage: React.FC<Props> = () => {
     const [snackBarMessage, setSnackBarMessage] = React.useState("");
     const [snackBarVariant, setSnackBarVariant] = React.useState("success");
 
-    console.log({gender, weightUnit, city});
-
     const setImageCallback = (value: []): void => {
         setImages([...images, value]);
     }
 
     const onSubmit = async (data) => {
         console.log("FORM SUBMITTED", data)
+        const {category, city, gender, weightUnit, contact, price, weight, description} = data;
         setIsLoading(true);
+
+        let selectedCities = !!city && city.length && city.map(city => {
+            return city.value
+        })
         let selectedAnimalCategory = category.value;
 
         let imagesArray: string[] = [];
@@ -88,6 +91,8 @@ const SellPage: React.FC<Props> = () => {
             imagesArray.push(downloadUrl)
         }
 
+        console.log("imagesArray", imagesArray)
+
         const animalData = {
             "timestampAdded": new Date(),
             image: !!imagesArray ? imagesArray : "",
@@ -110,7 +115,17 @@ const SellPage: React.FC<Props> = () => {
                 setShowSnackBar(true);
                 setSnackBarMessage("Animal added successfully!")
                 setSnackBarVariant("success")
-                resetValues();
+                // resetValues();
+                reset({
+                    category: null,
+                    city: null,
+                    gender: null,
+                    weightUnit: '',
+                    contact: '',
+                    price: '',
+                    weight: '',
+                    description: ''
+                  });
             })
             .catch((err) => {
                 console.log("error adding animal ######", err)
@@ -142,8 +157,6 @@ const SellPage: React.FC<Props> = () => {
         setWeight('');
         setImages([]);
     }
-
-    console.log("######## ERRORS", errors)
 
     return (
         <div className={classes.container}>
@@ -230,6 +243,7 @@ const SellPage: React.FC<Props> = () => {
                                             rules={{ required: true }}
                                             error={errors?.price ? true : false}
                                             errorMessage={'Required'}
+                                            placeholder="Price"
                                         />
                                     </Grid>
                                 </Grid>
@@ -252,6 +266,7 @@ const SellPage: React.FC<Props> = () => {
                                             rules={{ required: true }}
                                             error={errors?.contact ? true : false}
                                             errorMessage={'Required'}
+                                            placeholder="Contact"
                                         />
                                     </Grid>
                                 </Grid>
@@ -274,6 +289,7 @@ const SellPage: React.FC<Props> = () => {
                                             rules={{ required: true }}
                                             error={errors?.weight ? true : false}
                                             errorMessage={'Required'}
+                                            placeholder="Weight"
                                         />
                                     </Grid>
                                 </Grid>
