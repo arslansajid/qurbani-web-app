@@ -38,19 +38,20 @@ export const getAnimalsByCity = async function (animal, city) {
 
         return animals;
 }
-
 export const getAnimalsByFilter = async function (animal, city, weight, price) {
-    console.log({animal, city, weight, price})
+    console.log("################## getAnimalsByFilter", {animal, city, weight, price})
     const weightStart = !!weight ? Number(weight.split("-")[0]) : 0
     const weightEnd = !!weight ? Number(weight.split("-")[1]) : 99999999
     const priceStart = !!price ? Number(price.split("-")[0]) : 0
     const priceEnd = !!price ? Number(price.split("-")[1]) : 99999999
     const documentToQuery = animal.toLowerCase();
+    console.log("################## getAnimalsByFilter", {weightStart, weightEnd, priceStart, priceEnd})
     
     const query = await db
         .collection(documentToQuery)
         .where('location', 'array-contains', city)
         .where('weightInKG', '>=', weightStart).where('weightInKG', '<=', weightEnd)
+        .orderBy('weightInKG', 'asc')
         .get();
 
         let animals = [];
@@ -62,10 +63,41 @@ export const getAnimalsByFilter = async function (animal, city, weight, price) {
             }
         });
 
-        console.log("#### animals", animals)
+        // sort by weight
+        animals.sort((a, b) => parseFloat(a.weightInKG) - parseFloat(b.weightInKG));
 
+        // sort by price
+        animals.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        console.log("#### animals", animals)
         return animals;
 }
+// export const getAnimalsByFilter = async function (animal, city, weight, price) {
+//     console.log({animal, city, weight, price})
+//     const weightStart = !!weight ? Number(weight.split("-")[0]) : 0
+//     const weightEnd = !!weight ? Number(weight.split("-")[1]) : 99999999
+//     const priceStart = !!price ? Number(price.split("-")[0]) : 0
+//     const priceEnd = !!price ? Number(price.split("-")[1]) : 99999999
+//     const documentToQuery = animal.toLowerCase();
+    
+//     const query = await db
+//         .collection(documentToQuery)
+//         .where('location', 'array-contains', city)
+//         .where('weightInKG', '>=', weightStart).where('weightInKG', '<=', weightEnd)
+//         .get();
+
+//         let animals = [];
+
+//         query.docs.forEach((doc) => {
+//             const animal = Animal.fromFirestore(doc);
+//             if (!!animal && animal.price >= priceStart && animal.price <= priceEnd) {
+//                 animals.push(animal);
+//             }
+//         });
+
+//         console.log("#### animals", animals)
+
+//         return animals;
+// }
 
 //add functions 
 
