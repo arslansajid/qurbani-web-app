@@ -44,6 +44,15 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
         }
     }
 
+    let updatedWeight = "";
+    if(!!animal.weightUnit) {
+      if(animal.weightUnit === 'kg') {
+        updatedWeight = `${animal.weight} kg (${animal.weight / 40} mann)`;
+      } else {
+        updatedWeight = `${animal.weight * 40} kg (${animal.weight} mann)`;
+      }
+    }
+
     return (
         <>
         {
@@ -79,7 +88,7 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
                 
                 <Box className={classes.filtersBox}>
                     <Grid container justify="space-between" alignItems="center">
-                        <Typography gutterBottom variant='h5' component='h4'>Shakeel</Typography>
+                        <Typography gutterBottom variant='h5' component='h4'>{animal.customerName}</Typography>
                         <StarRatings
                             rating={Number(4)}
                             starRatedColor={Colors.appRed}
@@ -92,7 +101,9 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
                             name='rating'
                         />
                     </Grid>
-                    <Typography gutterBottom variant='h6' component='h6'>Weight: {animal.weight} {animal.weightUnit}</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Animal ID: {animal.animalId ? animal.animalId : "N/A"}</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Weight: {updatedWeight}</Typography>
+                    <Typography gutterBottom variant='h6' component='h6'>Gender: {animal.gender}</Typography>
                     <Typography gutterBottom variant='h6' component='h6'>Price: {animal.price}/- Rs</Typography>
                     <Typography gutterBottom variant='h6' component='h6'>Contact: {animal.contact}</Typography>
                     {

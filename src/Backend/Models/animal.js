@@ -2,6 +2,8 @@
 export class Animal {
     constructor(x) {
         this.uuid = x.uuid;
+        this.animalId = x.animalId;
+        this.customerName = x.customerName;
         this.color = x.color;
         this.image = x.image;
         this.contact = x.contact;
@@ -22,6 +24,8 @@ export class Animal {
 
         return new Animal({
             uuid: doc.id,
+            animalId: data['animalId'] ? data['animalId'] : '',
+            customerName: data['customerName'] ? data['customerName'] : '',
             color: data['color'] ? data['color'] : '',
             image: data['image'] ? data['image'] : [],
             contact: data['contact'] ? data['contact'] : [],
@@ -39,6 +43,8 @@ export class Animal {
     toJson(x) {
         return {
             uuid: x.uuid,
+            animalId: x.animalId,
+            customerName: x.customerName,
             color: x.color,
             image: x.image,
             contact: x.contact,
