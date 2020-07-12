@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/styles';
 import selectStyles from './style';
 import PropTypes from 'prop-types';
@@ -21,11 +20,11 @@ function SelectDropdown(props) {
 		if (!!props.multiple) {
 			onSelectAction(option);
 		} else {
-			if (meta.action == 'select-option') {
+			if (meta.action === 'select-option') {
 				//on Select action is function from props used to called when any option is selected and it passes the selected option to parent
 				onSelectAction(option);
 				setValue(option);
-			} else if (meta.action == 'clear') {
+			} else if (meta.action === 'clear') {
 				onSelectAction(null);
 				setValue('');
 			}
@@ -82,8 +81,13 @@ function SelectDropdown(props) {
 				fullWidth
 				label={label}
                 name={name}
-                control={control}
-                defaultValue={defaultValue}
+				control={control}
+				valueName={value}
+				onChange={([selected]) => {
+					// React Select return object instead of value for selection
+					props.onSelectAction(selected);
+					return selected;
+				  }}
 			/>
 		</div>
 		</>

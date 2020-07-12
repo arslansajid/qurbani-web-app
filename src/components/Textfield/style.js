@@ -95,7 +95,6 @@ const textFieldStyles = () => ({
     display: "flex",
     justifyContent: "center",
     border: "2px solid red",
-    width: '100%',
 
     flex: 1,
     minHeight: "36px",
@@ -125,7 +124,6 @@ const textFieldStyles = () => ({
     display: "flex",
     justifyContent: "center",
     border: "2px solid #EDEDED",
-    width: '100%',
 
     flex: 1,
     minHeight: "36px",

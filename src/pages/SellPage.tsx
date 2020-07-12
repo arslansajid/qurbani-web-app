@@ -37,7 +37,6 @@ const SellPage: React.FC<Props> = () => {
 
     const [category, setCategory] = React.useState({} as any);
     const [city, setCity] = React.useState({} as any);
-    const [selectedCities, setSelectedCities] = React.useState([] as any);
     const [gender, setGender] = React.useState({} as any);
     const [weightUnit, setWeightUnit] = React.useState({} as any);
     const [description, setDescription] = React.useState('');
@@ -138,24 +137,6 @@ const SellPage: React.FC<Props> = () => {
 
     const handleCitiesDropDown = (value) => {
         setCity(value);
-        let cities = [];
-        !!value && value.length && value.map(city => {
-            return city.value
-        })
-        setSelectedCities([...cities])
-    }
-
-    const resetValues = () => {
-        setCategory({});
-        setCity({});
-        setSelectedCities([]);
-        setGender({});
-        setWeightUnit({});
-        setDescription('');
-        setContact('');
-        setPrice('');
-        setWeight('');
-        setImages([]);
     }
 
     return (

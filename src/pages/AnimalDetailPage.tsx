@@ -7,6 +7,7 @@ import StarRatings from 'react-star-ratings';
 import PhoneIcon from '@material-ui/icons/Phone';
 import ItemsCarousel from 'react-items-carousel';
 import ZAnimalCard from "../components/ZAnimalCard";
+import Dialog from "../components/Dialog/Dialog";
 import PrevIcon from "@material-ui/icons/ChevronLeft";
 import NextIcon from "@material-ui/icons/ChevronRight";
 
@@ -17,6 +18,7 @@ interface Props {
 const AnimalDetailPage: React.FC<Props> = ({ location }) => {
     const classes = useStyles();
     const [activeItemIndex, setActiveItemIndex] = React.useState(0);
+    const [openCallDialog, setOpenCallDialog] = React.useState(false);
     const animal = location.state.animal;
     const items = location.state.items;
     console.log("######## animal", animal)
@@ -33,7 +35,34 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
     //     window.scrollTo(0, 0);
     // }, [])
 
+    const onCallClick = () => {
+        const isMobile = window.innerWidth < 500;
+        if(isMobile) {
+            window.location.href = "tel:0321-6375414";
+        } else {
+            setOpenCallDialog(true);
+        }
+    }
+
     return (
+        <>
+        {
+            openCallDialog && (
+                <Dialog
+                    title={'Contact Details'}
+                    open={openCallDialog}
+                    message={
+                        <>
+                            <Typography gutterBottom variant='h5' component='h4'>Shakeel</Typography>
+                            <Typography gutterBottom variant='h5' component='h4'>{animal.contact}</Typography>
+                        </>
+                    }
+                    applyForm={null}
+                    cancelForm={() => setOpenCallDialog(false)}
+                    hideActions={false}
+                />
+            )
+        }
         <div className={classes.container}>
             <Container maxWidth='xl'>
                 {images.length && (
@@ -115,10 +144,15 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
 
 
             </Container>
-            <Fab className={classes.callButton}>
+            <Fab
+                onClick={() => onCallClick()}
+                color='secondary'
+                className={classes.callButton}
+            >
                 <PhoneIcon className={classes.callIcon} />
             </Fab>
         </div>
+        </>
     );
 };
 
@@ -152,6 +186,10 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'fixed',
             bottom: 25,
             right: 25,
+
+            "&:hover" : {
+                background: Colors.appRed, 
+            }
         },
         callIcon: {
             color: 'white'

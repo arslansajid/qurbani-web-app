@@ -7,22 +7,44 @@ import ZAnimalCard from "../components/ZAnimalCard";
 import { CategoryOptions, CitiesOptions, WeightOptions, PriceOptions } from "../static/_data";
 import { getAnimalsByFilter } from "../Backend/Services/animalService";
 import { useForm } from "react-hook-form";
+import AppContext from '../Context/AppContext';
 
 interface Props { }
 
 const BuyPage: React.FC<Props> = () => {
     const classes = useStyles();
-    const { control, handleSubmit, errors } = useForm();
-    const [category, setCategory] = React.useState({} as any)
-    const [city, setCity] = React.useState({} as any);
-    const [price, setPrice] = React.useState({} as any);
-    const [weight, setWeight] = React.useState({} as any);
-    const [animals, setAnimals] = React.useState<any[]>([])
+    const { control, handleSubmit, errors, setValue } = useForm();
+    
+    let store = {} as any;
+    store = React.useContext(AppContext);
+    console.log("store #######", store)
+
+    // const [category, setCategory] = React.useState({} as any)
+    // const [city, setCity] = React.useState({} as any);
+    // const [price, setPrice] = React.useState({} as any);
+    // const [weight, setWeight] = React.useState({} as any);
     const [message, setMessage] = React.useState('Apply Filters to view animals!')
+    const animals = [...store.storeData?.animals];
+
+    React.useEffect(() => {
+        if(!!store.storeData.city) {
+            setValue('city', store.storeData.city);
+        }
+        if(!!store.storeData.category) {
+            setValue('category', store.storeData.category);
+        }
+        if(!!store.storeData.price) {
+            setValue('price', store.storeData.price);
+        }
+        if(!!store.storeData.weight) {
+            setValue('weight', store.storeData.weight);
+        }
+    }, [])
 
     const searchAnimals = (data) => {
         const {category, city, price, weight} = data;
-        console.log("FORM SUBMITTED")
+
+        console.log("FORM SUBMITTED", data)
         setMessage('Fetching results...');
         const animal = !!category && category?.value;
         const location = !!city && city?.value;
@@ -30,7 +52,8 @@ const BuyPage: React.FC<Props> = () => {
         const priceFilter = !!price && price?.value;
         getAnimalsByFilter(animal, location, weightFilter, priceFilter)
             .then((res) => {
-                setAnimals([...res])
+                // setAnimals([...res]);
+                store.setFilter('animals', [...res])
                 if (res.length === 0) {
                     setMessage('No Animals Found!');
                 }
@@ -51,7 +74,7 @@ const BuyPage: React.FC<Props> = () => {
                             <Grid lg={12} md={12} sm={12} xs={12} item className={`${classes.center} ${classes.locationfilterContainer}`}>
                                 <SelectDropdown
                                     options={CitiesOptions}
-                                    defaultValue={!!city && Object.keys(city).length ? city : null}
+                                    defaultValue={store.storeData.city}
                                     isDisabled={false}
                                     isClearable={false}
                                     name={'city'}
@@ -59,8 +82,8 @@ const BuyPage: React.FC<Props> = () => {
                                     labelAlign={'left'}
                                     labelWidth={150}
                                     styles={{}}
-                                    onSelectAction={(value) => setCity(value)}
-                                    placeholder={'Select City'}
+                                    onSelectAction={(value) => store.setFilter('city', value)}
+                                    placeholder={'Select City *'}
                                     control={control}
                                     rules={{ required: true }}
                                     error={errors?.city ? true : false}
@@ -70,7 +93,7 @@ const BuyPage: React.FC<Props> = () => {
                             <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
                                 <SelectDropdown
                                     options={CategoryOptions}
-                                    defaultValue={!!category && Object.keys(category).length ? category : null}
+                                    defaultValue={store.storeData.category}
                                     isDisabled={false}
                                     isClearable={false}
                                     name={'category'}
@@ -78,8 +101,8 @@ const BuyPage: React.FC<Props> = () => {
                                     labelAlign={'left'}
                                     labelWidth={150}
                                     styles={{}}
-                                    onSelectAction={(value) => setCategory(value)}
-                                    placeholder={'Select Category'}
+                                    onSelectAction={(value) => store.setFilter('category', value)}
+                                    placeholder={'Select Category *'}
                                     control={control}
                                     rules={{ required: true }}
                                     error={errors?.category ? true : false}
@@ -89,14 +112,14 @@ const BuyPage: React.FC<Props> = () => {
                             <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
                                 <SelectDropdown
                                     options={WeightOptions}
-                                    defaultValue={!!weight && Object.keys(weight).length ? weight : null}
+                                    defaultValue={store.storeData.weight}
                                     isDisabled={false}
                                     name={'weight'}
                                     label={null}
                                     labelAlign={'left'}
                                     labelWidth={150}
                                     styles={{}}
-                                    onSelectAction={(value) => setWeight(value)}
+                                    onSelectAction={(value) => store.setFilter('weight', value)}
                                     placeholder={'Select Weight'}
                                     control={control}
                                     isClearable={true}
@@ -108,14 +131,14 @@ const BuyPage: React.FC<Props> = () => {
                             <Grid lg={3} md={3} sm={12} xs={12} item className={classes.filterContainer}>
                                 <SelectDropdown
                                     options={PriceOptions}
-                                    defaultValue={!!price && Object.keys(price).length ? price : null}
+                                    defaultValue={store.storeData.price}
                                     isDisabled={false}
                                     name={'price'}
                                     label={null}
                                     labelAlign={'left'}
                                     labelWidth={150}
                                     styles={{}}
-                                    onSelectAction={(value) => setPrice(value)}
+                                    onSelectAction={(value) => store.setFilter('price', value)}
                                     placeholder={'Select Price'}
                                     control={control}
                                     isClearable={true}

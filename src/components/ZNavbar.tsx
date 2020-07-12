@@ -160,6 +160,23 @@ const Appbar: React.FC<Props> = (props: any) => {
                                 )}
                                 Contact Us
                             </Button>
+
+                            {/* <div>
+                            <Button
+                                component={Link}
+                                to='/sign-in'
+                                className={classes.navButton}
+                                color='inherit'>
+                                Sign In
+                            </Button>
+                            <Button
+                                component={Link}
+                                to='/sign-in'
+                                className={classes.navButton}
+                                color='inherit'>
+                                Sign Up
+                            </Button>
+                        </div> */}
                         </div>
                     </Toolbar>
                 </Container>
@@ -215,6 +232,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '0px !important',
     },
     blackContainer: {
+        display: 'flex',
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
