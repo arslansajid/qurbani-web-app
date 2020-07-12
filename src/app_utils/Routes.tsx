@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,13 +14,39 @@ import ContactusPage from '../pages/ContactusPage';
 import Navbar from '../components/ZNavbar';
 import Footer from '../components/ZFooter';
 
+import {AppProvider} from '../Context/AppContext';
+
 const RouterRoutes = () => {
+    const [store, setStore] = useState({
+        city: null,
+        category: null,
+        weight: null,
+        price: null,
+        animals: [],
+    })
+    
+    useEffect(() => {
+        console.log("############## UPDATED VALUE #########", store)
+    }, [store])
+
+    const updateFilter = (key, value) => {
+        console.log("updateFilters called with", {key, value});
+        setStore({ ...store, [key]: value })
+    }
+
     return (
-        <Router>
-            <Navbar />
-            <Switch>{[UnauthenticatedRoutes, <Route key={1} component={NotFoundPage} />]}</Switch>
-            <Footer />
-        </Router>
+        <AppProvider
+            value={{
+                storeData: store,
+                setFilter: updateFilter,
+          }}
+        >
+            <Router>
+                <Navbar />
+                <Switch>{[UnauthenticatedRoutes, <Route key={1} component={NotFoundPage} />]}</Switch>
+                <Footer />
+            </Router>
+        </AppProvider>
     );
 };
 
@@ -32,6 +58,6 @@ const UnauthenticatedRoutes = [
     <Route exact path='/contact-us' component={ContactusPage} />,
 ];
 
-const AuthenticatedRoutes = [];
+// const AuthenticatedRoutes = [];
 
 export default RouterRoutes;
