@@ -68,9 +68,6 @@ const Thumb = styled.div`
   width: 78px;
   height: 78px;
   box-sizing: border-box;
-  // position: absolute;
-  // top: 0;
-  // left: 0;
   border-radius: 3px;
   margin-right: 10px;
   object-fit: contain;
@@ -105,16 +102,9 @@ const DropZone = styled.div`
 	height: 100%;
   background-color: transparent;
   z-index: 100;
-
-  @media (max-width: 425px) {
-    width: 64px;
-    height: 64px;
-  }
 `;
 
 const ImageContainer = styled.div`
-	width: 100%;
-	height: 100%;
 	background-color: ${Colors.appRed};
 	display: flex;
 	justify-content: center;
@@ -123,10 +113,6 @@ const ImageContainer = styled.div`
   cursor: pointer;
   padding: 10px;
 
-  @media (max-width: 425px) {
-    width: 64px;
-    height: 64px;
-  }
 `;
 
 const Picker = styled.div`
@@ -139,8 +125,8 @@ const Picker = styled.div`
   align-items: center;
   
   @media (max-width: 425px) {
-    width: 52px;
-    height: 52px;
+    width: 100%;
+    height: 100%;
   }
 `;
 
