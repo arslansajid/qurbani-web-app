@@ -19,6 +19,10 @@ import nav from '../static/_nav';
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from '../styles/Colors';
 
+import Dialog from "../components/Dialog/Dialog";
+import SignInPage from '../pages/SignInPage';
+import SignUpPage from '../pages/SignUpPage';
+
 interface Props { }
 
 const drawerWidth = 280;
@@ -40,6 +44,8 @@ const Appbar: React.FC<Props> = (props: any) => {
     const classes = useStyles();
     const [selectedRoute, setSelectedRoute] = React.useState('/');
     const [sideCartOpen, setSideCartOpen] = React.useState<boolean>(false);
+    const [showSignIn, setShowSignIn] = React.useState<boolean>(false);
+    const [showSignUp, setShowSignUp] = React.useState<boolean>(false);
 
     const toggleDrawer = () => {
         setSideCartOpen(!sideCartOpen)
@@ -54,6 +60,33 @@ const Appbar: React.FC<Props> = (props: any) => {
     }, [props]);
 
     return (
+        <>
+        {
+            showSignIn && (
+                <Dialog
+                    title={null}
+                    open={showSignIn}
+                    message={<SignInPage onCancel={() => setShowSignIn(false)} />}
+                    applyForm={null}
+                    cancelForm={null}
+                    hideActions={true}
+                    disableBackdropClick={false}
+                />
+            )
+        }
+        {
+            showSignUp && (
+                <Dialog
+                    title={null}
+                    open={showSignUp}
+                    message={<SignUpPage onCancel={() => setShowSignUp(false)} />}
+                    applyForm={null}
+                    cancelForm={null}
+                    hideActions={true}
+                    disableBackdropClick={false}
+                />
+            )
+        }
         <ElevationScroll {...props}>
             <AppBar position='fixed' classes={{ root: classes.headerBar }}>
                 <Drawer
@@ -161,27 +194,30 @@ const Appbar: React.FC<Props> = (props: any) => {
                                 Contact Us
                             </Button>
 
-                            {/* <div>
+                            <div>
                             <Button
-                                component={Link}
-                                to='/sign-in'
+                                // component={Link}
+                                // to='/sign-in'
+                                onClick={() => setShowSignIn(true)}
                                 className={classes.navButton}
                                 color='inherit'>
                                 Sign In
                             </Button>
                             <Button
-                                component={Link}
-                                to='/sign-in'
+                                // component={Link}
+                                // to='/sign-in'
+                                onClick={() => setShowSignUp(true)}
                                 className={classes.navButton}
                                 color='inherit'>
                                 Sign Up
                             </Button>
-                        </div> */}
+                        </div>
                         </div>
                     </Toolbar>
                 </Container>
             </AppBar>
         </ElevationScroll>
+        </>
     );
 };
 
