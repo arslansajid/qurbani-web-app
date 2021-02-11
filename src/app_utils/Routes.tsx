@@ -29,7 +29,7 @@ const RouterRoutes = () => {
         console.log("############## UPDATED VALUE #########", store)
     }, [store])
 
-    const updateFilter = (key, value) => {
+    const updateStoreData = (key, value) => {
         console.log("updateFilters called with", {key, value});
         setStore({ ...store, [key]: value })
     }
@@ -38,7 +38,7 @@ const RouterRoutes = () => {
         <AppProvider
             value={{
                 storeData: store,
-                setFilter: updateFilter,
+                setFilter: updateStoreData,
           }}
         >
             <Router>

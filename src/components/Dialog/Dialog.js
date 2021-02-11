@@ -13,10 +13,12 @@ const DialogForm = ({
     applyForm,
     cancelForm,
     hideActions,
+    disableBackdropClick
 }) => {
+    console.log("disableBackdropClick", disableBackdropClick)
     return (
         <div>
-            <Dialog open={open} onClose={cancelForm} fullWidth={true} maxWidth={'sm'} disableBackdropClick>
+            <Dialog open={open} onClose={cancelForm} fullWidth={true} maxWidth={'sm'} disableBackdropClick={disableBackdropClick}>
                 <DialogTitle id='form-dialog-title'>{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText component={'div'}>{message}</DialogContentText>

@@ -62,13 +62,14 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
                     open={openCallDialog}
                     message={
                         <>
-                            <Typography gutterBottom variant='h5' component='h4'>Shakeel</Typography>
+                            <Typography gutterBottom variant='h5' component='h4'>{animal.customerName}</Typography>
                             <Typography gutterBottom variant='h5' component='h4'>{animal.contact}</Typography>
                         </>
                     }
                     applyForm={null}
                     cancelForm={() => setOpenCallDialog(false)}
                     hideActions={false}
+                    disableBackdropClick={true}
                 />
             )
         }
@@ -88,7 +89,7 @@ const AnimalDetailPage: React.FC<Props> = ({ location }) => {
                 
                 <Box className={classes.filtersBox}>
                     <Grid container justify="space-between" alignItems="center">
-                        <Typography gutterBottom variant='h5' component='h4'>{animal.customerName}</Typography>
+                        <Typography gutterBottom variant='h4' component='h4'>{animal.customerName}</Typography>
                         <StarRatings
                             rating={Number(4)}
                             starRatedColor={Colors.appRed}
